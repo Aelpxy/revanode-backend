@@ -16,12 +16,13 @@ export const authorizeUser = async (
       token = req.headers.authorization?.split(" ")[1];
 
       // @ts-ignore
-      const decode = jwt.verify(token, process.env.JWT_SECRET_TOKEN);
+      const decode = jwt.verify(token, process.env.JWT_SECRET_KEY);
       // @ts-ignore
       req.user = decode;
-
       next();
     } catch (error) {
+      console.log(error);
+
       res.status(401).send({
         message: "UNAUTHORIZED",
         payload: null,
