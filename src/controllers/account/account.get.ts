@@ -5,6 +5,15 @@ const db = new PrismaClient();
 
 export const accountInformation = async (req: Request, res: Response) => {
   try {
+    if (req.method != "GET") {
+      res.status(405).send({
+        message: "METHOD_NOT_ALLOWED",
+        payload: null,
+      });
+
+      return;
+    }
+
     const user = await db.user.findUnique({
       where: {
         // @ts-ignore
