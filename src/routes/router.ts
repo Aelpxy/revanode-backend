@@ -8,6 +8,8 @@ import { authLogin } from "../controllers/auth/auth.login";
 
 import { accountInformation } from "../controllers/account/account.get";
 
+import { getServer } from "../controllers/servers/server.get";
+
 const router = express.Router();
 
 router.get("/status", (req: Request, res: Response) => {
@@ -32,5 +34,8 @@ router.post("/account/login", authLogin);
 
 // /account route
 router.get("/account", authorizeUser, accountInformation);
+
+// /servers route
+router.get("/servers", authorizeUser, getServer);
 
 export default router;
