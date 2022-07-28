@@ -34,6 +34,7 @@ export const accountDelete = async (req: Request, res: Response) => {
       },
       include: {
         servers: true,
+        invoices: true,
       }
     });
 
