@@ -36,8 +36,8 @@ router.post("/account/login", authLogin);
 
 // /account route
 router.get("/account", authorizeUser, accountInformation);
-router.delete("/account/delete", authorizeUser, accountDelete)
-router.put("/account/update", authorizeUser, accountUpdate)
+router.delete("/account/delete", authorizeUser, accountDelete);
+router.put("/account/update", authorizeUser, accountUpdate);
 
 // /servers route
 router.get("/servers", authorizeUser, getServer);

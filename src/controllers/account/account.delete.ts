@@ -31,8 +31,8 @@ export const accountDelete = async (req: Request, res: Response) => {
     await db.user.delete({
       where: {
         apiKey: user?.apiKey,
-      }
-    })
+      },
+    });
 
     res.status(200).send({
       message: "SUCCESS",
