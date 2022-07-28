@@ -3,7 +3,13 @@ import { PrismaClient } from "@prisma/client";
 
 const db = new PrismaClient();
 
-export const getServer = async (req: Request, res: Response) => {
+interface UserRequest extends Request {
+  user: {
+    apiKey: string;
+  };
+}
+
+export const getServer = async (req: UserRequest, res: Response) => {
   try {
     if (req.method != "GET") {
       res.status(405).send({
