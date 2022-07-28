@@ -45,7 +45,7 @@ export const authLogin = async (req: Request, res: Response) => {
 
     if (!validpassword) {
       res.status(401).send({
-        message: "UNAUTHORIZED",
+        message: "INVALID_PASSWORD",
         payload: null,
       });
 
