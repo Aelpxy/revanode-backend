@@ -28,5 +28,5 @@ app.get("*", (req: Request, res: Response) => {
 });
 
 app.listen(8080, () => {
-  console.log("[LOG] Listening on PORT 8080");
+  console.log("[LOG] Listening on PORT 8080 [DEVELOPMENT]");
 });

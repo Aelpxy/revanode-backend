@@ -32,6 +32,9 @@ export const accountDelete = async (req: Request, res: Response) => {
       where: {
         apiKey: user?.apiKey,
       },
+      include: {
+        servers: true,
+      }
     });
 
     res.status(200).send({
