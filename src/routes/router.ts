@@ -11,6 +11,8 @@ import { accountDelete } from "../controllers/account/account.delete";
 import { accountUpdate } from "../controllers/account/account.update";
 
 import { getServer } from "../controllers/servers/server.get";
+import { postServer } from "../controllers/servers/server.post";
+import { deleteServer } from "../controllers/servers/server.delete";
 
 const router = express.Router();
 
@@ -41,5 +43,7 @@ router.put("/account/update", authorizeUser, accountUpdate);
 
 // /servers route
 router.get("/servers", authorizeUser, getServer);
+router.post("/servers/create", authorizeUser, postServer);
+router.delete("/servers/delete", authorizeUser, deleteServer);
 
 export default router;
