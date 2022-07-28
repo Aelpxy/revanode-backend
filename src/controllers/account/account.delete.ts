@@ -3,13 +3,7 @@ import { PrismaClient } from "@prisma/client";
 
 const db = new PrismaClient();
 
-interface UserRequest extends Request {
-  user: {
-    apiKey: string;
-  };
-}
-
-export const accountDelete = async (req: UserRequest, res: Response) => {
+export const accountDelete = async (req: Request, res: Response) => {
   try {
     if (req.method != "DELETE") {
       res.status(405).send({
@@ -22,6 +16,7 @@ export const accountDelete = async (req: UserRequest, res: Response) => {
 
     const user = await db.user.findUnique({
       where: {
+        // @ts-ignore
         apiKey: req.user.apiKey,
       },
     });

@@ -4,13 +4,7 @@ import bcrypt from "bcrypt";
 
 const db = new PrismaClient();
 
-interface UserRequest extends Request {
-  user: {
-    apiKey: string;
-  };
-}
-
-export const accountUpdate = async (req: UserRequest, res: Response) => {
+export const accountUpdate = async (req: Request, res: Response) => {
   try {
     if (req.method != "PUT") {
       res.status(405).send({
@@ -21,6 +15,7 @@ export const accountUpdate = async (req: UserRequest, res: Response) => {
       return;
     }
 
+    // @ts-ignore
     const token = req.user.apiKey;
 
     if (req.body.password) {
