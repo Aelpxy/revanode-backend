@@ -22,6 +22,7 @@ router.get("/status", (req: Request, res: Response) => {
       message: "SUCCESS",
       payload: {
         status: "online",
+        environment: "production"
       },
     });
   } catch (error) {

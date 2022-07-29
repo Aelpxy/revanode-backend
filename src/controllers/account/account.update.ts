@@ -32,7 +32,13 @@ export const accountUpdate = async (req: Request, res: Response) => {
 
       res.status(200).send({
         message: "SUCCESS",
-        payload: updatedUser,
+        payload: {
+          id: updatedUser.id,
+          username: updatedUser.username,
+          email: updatedUser.email,
+          createdAt: updatedUser.createdAt,
+          updatedAt: updatedUser.updatedAt      
+        },
       });
       return;
     }
@@ -56,7 +62,13 @@ export const accountUpdate = async (req: Request, res: Response) => {
       });
       res.status(200).send({
         message: "SUCCESS",
-        payload: updatedUser,
+        payload: {
+          id: updatedUser.id,
+          username: updatedUser.username,
+          email: updatedUser.email,
+          createdAt: updatedUser.createdAt,
+          updatedAt: updatedUser.updatedAt      
+        },
       });
 
       return;
