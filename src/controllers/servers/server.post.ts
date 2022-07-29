@@ -14,6 +14,15 @@ export const postServer = async (req: Request, res: Response) => {
       return;
     }
 
+    if (!req.body.name && !req.body.amount && !req.body.region && !req.body.paymentId) {
+      res.status(500).send({
+        message: "BAD_REQUEST",
+        payload: null,
+      });
+
+      return;
+    }
+
     const user = await db.user.findUnique({
       where: {
         // @ts-ignore
@@ -40,7 +49,10 @@ export const postServer = async (req: Request, res: Response) => {
       },
     });
 
-    res.status(201).send(server)
+    res.status(201).send({
+      message: "SUCCESS",
+      payload: server,
+    })
 
 
   } catch (error) {
