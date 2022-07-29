@@ -26,6 +26,8 @@ export const accountDelete = async (req: Request, res: Response) => {
         message: "NOT_FOUND",
         payload: null,
       });
+
+      return;
     }
 
     await db.server.deleteMany({
