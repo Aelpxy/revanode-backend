@@ -33,14 +33,14 @@ export const accountDelete = async (req: Request, res: Response) => {
     await db.server.deleteMany({
       where: {
         userId: Number(user?.id),
-      }
-    })
+      },
+    });
 
     await db.invoice.deleteMany({
       where: {
         userId: Number(user?.id),
-      }
-    })
+      },
+    });
 
     await db.user.delete({
       where: {

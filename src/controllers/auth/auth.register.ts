@@ -25,7 +25,7 @@ export const authRegister = async (req: Request, res: Response) => {
 
       return;
     }
-    
+
     if (req.body.password.length < 8) {
       res.status(500).send({
         message: "BAD_REQUEST",

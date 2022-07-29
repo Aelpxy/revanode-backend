@@ -6,7 +6,7 @@ import { generateToken } from "../../utils/generateToken";
 const db = new PrismaClient();
 
 export const authLogin = async (req: Request, res: Response) => {
-  try {    
+  try {
     if (req.method != "POST") {
       res.status(405).send({
         message: "METHOD_NOT_ALLOWED",

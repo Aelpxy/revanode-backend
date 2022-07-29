@@ -37,7 +37,7 @@ export const accountUpdate = async (req: Request, res: Response) => {
           username: updatedUser.username,
           email: updatedUser.email,
           createdAt: updatedUser.createdAt,
-          updatedAt: updatedUser.updatedAt      
+          updatedAt: updatedUser.updatedAt,
         },
       });
       return;
@@ -67,7 +67,7 @@ export const accountUpdate = async (req: Request, res: Response) => {
           username: updatedUser.username,
           email: updatedUser.email,
           createdAt: updatedUser.createdAt,
-          updatedAt: updatedUser.updatedAt      
+          updatedAt: updatedUser.updatedAt,
         },
       });
 
