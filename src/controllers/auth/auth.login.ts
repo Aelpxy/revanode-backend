@@ -2,6 +2,10 @@ import { Response, Request } from "express";
 import { PrismaClient } from "@prisma/client";
 import bcrypt from "bcrypt";
 import { generateToken } from "../../utils/generateToken";
+import Stripe from "stripe";
+
+// @ts-ignore
+const stripe = new Stripe(process.env.STRIPE_SECRET_KEY);
 
 const db = new PrismaClient();
 
@@ -51,7 +55,6 @@ export const authLogin = async (req: Request, res: Response) => {
 
       return;
     }
-
     res.status(200).send({
       message: "SUCCESS",
       payload: {

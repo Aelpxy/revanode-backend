@@ -3,6 +3,10 @@ import { PrismaClient } from "@prisma/client";
 import bcrypt from "bcrypt";
 import crypto from "crypto";
 import { generateToken } from "../../utils/generateToken";
+import Stripe from "stripe";
+
+// @ts-ignore
+const stripe = new Stripe(process.env.STRIPE_SECRET_KEY);
 
 const db = new PrismaClient();
 
@@ -61,6 +65,15 @@ export const authRegister = async (req: Request, res: Response) => {
       },
     });
 
+    const stripeCustomerPortal = await stripe.customers.create({
+      name: User.username,
+      email: User.email,
+      metadata: {
+        'customer_internal_id': User.id,
+        "customer_apiKey": User.apiKey,
+      },
+    })
+
     res.status(201).send({
       message: "CREATED",
       payload: {
@@ -69,6 +82,7 @@ export const authRegister = async (req: Request, res: Response) => {
         email: User.email,
         auth_token: generateToken(User.apiKey),
       },
+      stripeInfo: stripeCustomerPortal,
     });
   } catch (error) {
     res.status(500).send({
