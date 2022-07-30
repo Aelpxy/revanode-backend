@@ -51,6 +51,7 @@ export const postServer = async (req: Request, res: Response) => {
     const sub = await stripe.checkout.sessions.create({
       mode: "subscription",
       payment_method_types: ["card"],
+      customer: user.stripeId,
       line_items: [
         {
           price_data: {
@@ -65,7 +66,7 @@ export const postServer = async (req: Request, res: Response) => {
           },
           quantity: 1,
         },
-        {price: 'price_1LR9lOI2aJzxZgFMxN7uim9O', quantity: 1},
+        { price: "price_1LR9lOI2aJzxZgFMxN7uim9O", quantity: 1 },
       ],
       success_url: `https://revanode.space?session_id={CHECKOUT_SESSION_ID}`,
       cancel_url: `https://revanode.space/cancel`,

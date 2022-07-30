@@ -62,6 +62,7 @@ export const authRegister = async (req: Request, res: Response) => {
         email: req.body.email,
         password: hashedPassword.toString(),
         apiKey: crypto.randomBytes(16).toString("hex"),
+        stripeId: "null",
       },
     });
 
@@ -69,10 +70,19 @@ export const authRegister = async (req: Request, res: Response) => {
       name: User.username,
       email: User.email,
       metadata: {
-        'customer_internal_id': User.id,
-        "customer_apiKey": User.apiKey,
+        customer_internal_id: User.id,
+        customer_apiKey: User.apiKey,
       },
-    })
+    });
+
+    await db.user.update({
+      where: {
+        id: User.id,
+      },
+      data: {
+        stripeId: stripeCustomerPortal.id,
+      },
+    });
 
     res.status(201).send({
       message: "CREATED",
