@@ -22,7 +22,7 @@ app.use(express.urlencoded({ extended: false }));
 app.use(helmet());
 app.use(cors());
 app.use(limiter);
-
+app.set("trust proxy", 1);
 app.use("/v1", router);
 
 app.get("*", (req: Request, res: Response) => {

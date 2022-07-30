@@ -17,6 +17,7 @@ import { deleteServer } from "../controllers/servers/server.delete";
 
 const router = express.Router();
 
+router.get("/ip", (req: Request, res: Response) => res.status(200).send({message: "SUCCESS", ip: req.ip}));
 router.get("/status", (req: Request, res: Response) => {
   try {
     res.status(200).send({
