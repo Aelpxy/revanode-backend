@@ -66,7 +66,7 @@ export const authRegister = async (req: Request, res: Response) => {
       },
     });
 
-    const stripeCustomerPortal = await stripe.customers.create({
+    const createdCustomer = await stripe.customers.create({
       name: User.username,
       email: User.email,
       metadata: {
@@ -80,7 +80,7 @@ export const authRegister = async (req: Request, res: Response) => {
         id: User.id,
       },
       data: {
-        stripeId: stripeCustomerPortal.id,
+        stripeId: createdCustomer.id,
       },
     });
 
@@ -92,7 +92,6 @@ export const authRegister = async (req: Request, res: Response) => {
         email: User.email,
         auth_token: generateToken(User.apiKey),
       },
-      stripeInfo: stripeCustomerPortal,
     });
   } catch (error) {
     res.status(500).send({

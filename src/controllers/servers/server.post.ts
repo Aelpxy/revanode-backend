@@ -45,7 +45,6 @@ export const postServer = async (req: Request, res: Response) => {
 
     const sub = await stripe.checkout.sessions.create({
       mode: "subscription",
-      payment_method_types: ["card"],
       customer: user.stripeId,
       line_items: [
         {
@@ -82,6 +81,8 @@ export const postServer = async (req: Request, res: Response) => {
       payload: sub.url,
     });
   } catch (error) {
+    console.log(error);
+    
     res.status(500).send({
       message: "INTERNAL_SERVER_ERROR",
       payload: null,

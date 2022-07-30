@@ -11,6 +11,7 @@ import { accountDelete } from "../controllers/account/account.delete";
 import { accountUpdate } from "../controllers/account/account.update";
 
 import { getServer } from "../controllers/servers/server.get";
+import { findServerbyId } from "../controllers/servers/findServer";
 import { postServer } from "../controllers/servers/server.post";
 import { deleteServer } from "../controllers/servers/server.delete";
 
@@ -44,6 +45,7 @@ router.put("/account/update", authorizeUser, accountUpdate);
 
 // /servers route
 router.get("/servers", authorizeUser, getServer);
+router.get("/servers/:id", authorizeUser, findServerbyId);
 router.post("/servers/create", authorizeUser, postServer);
 router.delete("/servers/delete", authorizeUser, deleteServer);
 
