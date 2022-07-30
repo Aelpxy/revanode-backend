@@ -39,7 +39,3 @@ model Server {
 
   @@index([userId])
 }
-
-model Payment {
-  id Int @id @default(autoincrement())
-}
