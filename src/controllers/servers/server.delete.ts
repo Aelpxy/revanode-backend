@@ -1,5 +1,9 @@
 import { Request, Response } from "express";
 import { PrismaClient } from "@prisma/client";
+import Stripe from "stripe";
+
+// @ts-ignore
+const stripe = new Stripe(process.env.STRIPE_SECRET_KEY);
 
 const db = new PrismaClient();
 
@@ -41,8 +45,11 @@ export const deleteServer = async (req: Request, res: Response) => {
         message: "NOT_FOUND",
         payload: null,
       });
+
       return;
     }
+
+    await stripe.subscriptions.del(server.paymentId);
 
     await db.server.delete({
       where: {
