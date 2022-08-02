@@ -43,7 +43,7 @@ export const postServer = async (req: Request, res: Response) => {
       return;
     }
 
-    const sub = await stripe.checkout.sessions.create({
+    const session = await stripe.checkout.sessions.create({
       mode: "subscription",
       customer: user.stripeId,
       line_items: [
@@ -62,8 +62,8 @@ export const postServer = async (req: Request, res: Response) => {
         },
         { price: "price_1LR9lOI2aJzxZgFMxN7uim9O", quantity: 1 },
       ],
-      success_url: `https://revanode.space?session_id={CHECKOUT_SESSION_ID}`,
-      cancel_url: `https://revanode.space/cancel`,
+      success_url: `${process.env.HOST_URL}?session_id={CHECKOUT_SESSION_ID}`,
+      cancel_url: `${process.env.HOST_URL}/cancel`,
     });
 
     const server = await db.server.create({
@@ -71,18 +71,24 @@ export const postServer = async (req: Request, res: Response) => {
         name: req.body.name,
         amount: req.body.amount,
         region: req.body.region,
-        paymentId: sub.id,
+        paymentId: session.id,
         userId: Number(user?.id),
       },
     });
 
     res.status(201).send({
       message: "SUCCESS",
-      payload: sub.url,
+      payload: {
+        id: server.id,
+        region: server.region,
+        payment_url: session.url,
+        createdAt: server.createdAt,
+        updatedAt: server.updatedAt,
+      },
     });
   } catch (error) {
     console.log(error);
-    
+
     res.status(500).send({
       message: "INTERNAL_SERVER_ERROR",
       payload: null,

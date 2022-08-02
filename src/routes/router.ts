@@ -15,6 +15,8 @@ import { findServerbyId } from "../controllers/servers/findServer";
 import { postServer } from "../controllers/servers/server.post";
 import { deleteServer } from "../controllers/servers/server.delete";
 
+import { customerPortal } from "../controllers/billing/customerPortal";
+
 const router = express.Router();
 
 router.get("/ip", (req: Request, res: Response) => res.status(200).send({message: "SUCCESS", ip: req.ip}));
@@ -49,5 +51,8 @@ router.get("/servers", authorizeUser, getServer);
 router.get("/servers/:id", authorizeUser, findServerbyId);
 router.post("/servers/create", authorizeUser, postServer);
 router.delete("/servers/delete", authorizeUser, deleteServer);
+
+// billing route
+router.get("/billing/create-portal", authorizeUser, customerPortal);
 
 export default router;
